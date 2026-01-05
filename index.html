@@ -1,30 +1,530 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>April 🌸</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Place</title>
+
   <style>
-    body {
-      background: #fff0f6;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
+    :root{
+      --cream:#faf7f2;
+      --softblue:#e8f0f8;
+      --card:#ffffffcc;
+      --text:#000000;
+      --shadow:0 12px 30px rgba(0,0,0,.08);
+      --border:1px solid rgba(0,0,0,.08);
     }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 25px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+      color:var(--text);
+      background: linear-gradient(180deg, var(--cream), var(--softblue));
+      min-height:100vh;
+    }
+
+    /* Top nav */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(250,247,242,.85);
+      border-bottom: var(--border);
+    }
+    .topbar-inner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 12px 14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .brand .title{
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing:.2px;
+    }
+    .brand .sub{
+      font-size: 12px;
+      opacity:.75;
+    }
+
+    .nav{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .tab{
+      border: var(--border);
+      background: rgba(255,255,255,.8);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .tab.active{
+      background: #ffffff;
+      box-shadow: 0 8px 16px rgba(0,0,0,.08);
+    }
+
+    /* Page container */
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px 14px 40px;
+    }
+
+    .card{
+      background: var(--card);
+      border: var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+      margin-top: 16px;
+    }
+
+    h1,h2{
+      margin: 0 0 12px;
+    }
+    p{
+      margin: 0 0 10px;
+      line-height: 1.45;
+    }
+    .muted{opacity:.75}
+
+    /* Show/hide pages */
+    .page{display:none;}
+    .page.active{display:block;}
+
+    /* Menu styling */
+    .menu-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .menu-box{
+      background: rgba(255,255,255,.8);
+      border: var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .menu-item{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .menu-item:last-child{border-bottom:none}
+
+    /* Simple staff list page (not the poster) */
+    .staff-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .person-card{
+      background: rgba(255,255,255,.8);
+      border: var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    footer{
+      text-align:center;
+      margin-top: 26px;
+      opacity:.7;
+      font-size: 13px;
+    }
+  </style>
+
+  <!-- TEAM POSTER (your layout) CSS -->
+  <style>
+    /* Page container (the “poster”) */
+    .team-poster{
+      position: relative;
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 28px 22px 34px;
+      background: #f6efe8;               /* warm cream */
+      border-radius: 10px;
+      overflow: hidden;
+
+      /* soft dotted red border like Canva */
+      outline: 2px dashed #c76a6a;
+      outline-offset: -10px;
+
+      font-family: Georgia, "Times New Roman", serif;
+      color: #1f1f1f;
+    }
+
+    /* Top blue strip */
+    .top-strip{
+      position:absolute;
+      left:0; right:0; top:0;
+      height: 44px;
+      background: #7f8ec7;               /* soft blue */
+      opacity: .55;
+    }
+
+    /* Two-person rows */
+    .person{
+      position: relative;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      column-gap: 26px;
+      align-items: start;
+      margin-top: 40px;
+    }
+    .person:first-of-type{ margin-top: 18px; }
+
+    .left{
+      display:flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    /* Scalloped “stamp” frame */
+    .scallop-frame{
+      width: 190px;
+      height: 190px;
+      padding: 14px; /* thickness of scallop edge */
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 10px 10px, #ffffff 8px, transparent 9px) 0 0 / 18px 18px,
+        radial-gradient(circle at 10px 10px, #ffffff 8px, transparent 9px) 9px 9px / 18px 18px,
+        #ffffff;
+      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+      position: relative;
+    }
+    .scallop-frame img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display:block;
+    }
+
+    /* Script-ish name */
+    .sig{
+      font-family: "Brush Script MT", "Comic Sans MS", cursive;
+      font-size: 34px;
+      margin-left: 4px;
+      line-height: 1;
+    }
+
+    /* Pink text boxes (stacked like the image) */
+    .right{
+      display:flex;
+      flex-direction: column;
+      gap: 18px;
+      padding-top: 10px;
+    }
+    .pink-box{
+      background: #f1b3b3;               /* soft pink */
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: 0 8px 18px rgba(0,0,0,.08);
+      font-size: 18px;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* Corner “paper” blocks like Canva */
+    .corner{
+      position:absolute;
+      width: 110px;
+      height: 110px;
+      background: #7f8ec7;
+      opacity: .45;
+      border-radius: 16px;
+    }
+    .corner-tr{ top: 10px; right: 14px; transform: rotate(8deg); }
+    .corner-br{ bottom: 14px; right: 16px; transform: rotate(-6deg); }
+
+    /* Light blue “confetti/doodles” feel (simple blobs) */
+    .doodle{
+      position:absolute;
+      opacity: .45;
+      pointer-events: none;
+      background:
+        radial-gradient(circle, #7f8ec7 0 6px, transparent 7px) 0 0/48px 48px,
+        radial-gradient(circle, #7f8ec7 0 4px, transparent 5px) 18px 22px/42px 42px,
+        radial-gradient(circle, #7f8ec7 0 3px, transparent 4px) 30px 10px/38px 38px;
+      width: 230px;
+      height: 160px;
+      filter: blur(.2px);
+    }
+    .doodle-mid{ left: 36px; top: 240px; }
+    .doodle-br{ left: 36px; bottom: 22px; width: 250px; height: 170px; }
+
+    /* Bottom-right little “steam lines” doodle */
+    .team-poster::after{
+      content:"";
+      position:absolute;
+      right: 44px;
+      top: 360px;
+      width: 120px;
+      height: 90px;
+      opacity: .55;
+      background:
+        radial-gradient(closest-side, transparent 70%, #1f1f1f 72% 74%, transparent 76%) 0 0/120px 30px,
+        radial-gradient(closest-side, transparent 70%, #1f1f1f 72% 74%, transparent 76%) 0 30px/120px 30px,
+        radial-gradient(closest-side, transparent 70%, #1f1f1f 72% 74%, transparent 76%) 0 60px/120px 30px;
+      transform: rotate(-10deg);
+    }
+
+    /* Mobile */
+    @media (max-width: 740px){
+      .person{
+        grid-template-columns: 1fr;
+        row-gap: 16px;
+        justify-items: center;
+        text-align: center;
+      }
+      .left{ align-items:center; }
+      .sig{ margin-left: 0; }
+      .right{ width: 100%; }
+      .pink-box{ font-size: 17px; }
     }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <h1>🌸 April 🌸</h1>
-    <p>This page is only for people with the QR code.</p>
-    <p>Hi 💗</p>
+  <!-- TOP NAV -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="title">Our Place</div>
+        <div class="sub">cream + soft blue • black text • QR shared</div>
+      </div>
+
+      <div class="nav" role="navigation" aria-label="Site navigation">
+        <button class="tab active" data-page="home">Home</button>
+        <button class="tab" data-page="menu">Menu</button>
+        <button class="tab" data-page="team">Our Team</button>
+        <button class="tab" data-page="story">How it was made</button>
+        <button class="tab" data-page="contact">Our Place</button>
+      </div>
+    </div>
   </div>
+
+  <div class="wrap">
+
+    <!-- HOME -->
+    <div class="page active" id="home">
+      <div class="card">
+        <h1>Welcome 🤍</h1>
+        <p>This is our website. Use the buttons at the top to switch pages.</p>
+        <p class="muted">You can keep everything “blank” until you’re ready, then we’ll fill it with the real info.</p>
+      </div>
+
+      <div class="card">
+        <h2>Quick info</h2>
+        <p><b>Hours:</b> (blank for now)</p>
+        <p><b>Location:</b> (blank for now)</p>
+        <p><b>Special:</b> (blank for now)</p>
+      </div>
+    </div>
+
+    <!-- MENU (placeholders for now) -->
+    <div class="page" id="menu">
+      <div class="card">
+        <h2>Menu</h2>
+        <p class="muted">Menu is blank right now. When you send me your menu, I’ll format it perfectly.</p>
+
+        <div class="menu-grid">
+          <div class="menu-box">
+            <h3 style="margin:0 0 8px;">Starters</h3>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+          </div>
+
+          <div class="menu-box">
+            <h3 style="margin:0 0 8px;">Mains</h3>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+          </div>
+
+          <div class="menu-box">
+            <h3 style="margin:0 0 8px;">Desserts</h3>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+          </div>
+
+          <div class="menu-box">
+            <h3 style="margin:0 0 8px;">Drinks</h3>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+            <div class="menu-item"><span>(item)</span><span>($)</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="page" id="team">
+      <div class="card">
+        <h2>Our Team</h2>
+        <p class="muted">This page matches your poster style. Add photos into an <b>images</b> folder.</p>
+        <p class="muted">Example image paths: <b>images/stella.jpg</b> and <b>images/lon.jpg</b>.</p>
+      </div>
+
+      <!-- TEAM PAGE — your layout -->
+      <section class="team-poster">
+
+        <div class="top-strip"></div>
+
+        <!-- Person 1 -->
+        <div class="person">
+          <div class="left">
+            <div class="scallop-frame">
+              <img src="images/stella.jpg" alt="Stella">
+            </div>
+            <div class="sig">Stella</div>
+          </div>
+
+          <div class="right">
+            <div class="pink-box">
+              This is our waitress, Stella. She is the one who first came up with the idea for the restaurant and, with help,
+              brought it to life for our grand opening.
+            </div>
+
+            <div class="pink-box">
+              Stella mainly works as a server and will be one of the first faces you see when you walk in. She focuses on making
+              guests feel welcome, comfortable, and happy, and loves bringing a few laughs and smiles to the table.
+            </div>
+
+            <div class="pink-box">
+              When she’s not out on the floor, Stella also helps the chef in the kitchen from time to time, assisting with
+              cooking and preparation as needed.
+            </div>
+          </div>
+        </div>
+
+        <!-- Person 2 -->
+        <div class="person">
+          <div class="left">
+            <div class="scallop-frame">
+              <img src="images/lon.jpg" alt="Lon">
+            </div>
+            <div class="sig">Lon</div>
+          </div>
+
+          <div class="right">
+            <div class="pink-box">
+              Lon is the other co-founder of the restaurant and the main chef behind the menu.
+            </div>
+
+            <div class="pink-box">
+              As the head chef, Lon created most of the menu, focusing on classic dishes made with care. Almost all of the food
+              is made in-house, including our homemade pasta, with attention to quality and detail.
+            </div>
+
+            <div class="pink-box">
+              During service, Lon leads the kitchen and works closely with the team to make sure every dish is prepared just
+              right for our grand opening and beyond.
+            </div>
+          </div>
+        </div>
+
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-br"></div>
+        <div class="doodle doodle-mid"></div>
+        <div class="doodle doodle-br"></div>
+
+      </section>
+
+      <div class="card">
+        <h2>More team members</h2>
+        <p class="muted">Add more later (blank for now):</p>
+        <div class="staff-grid">
+          <div class="person-card"><b>Hostess:</b> (name)</div>
+          <div class="person-card"><b>Waiter:</b> (name)</div>
+          <div class="person-card"><b>Waitress:</b> (name)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="page" id="story">
+      <div class="card">
+        <h2>How it was made</h2>
+        <p class="muted">Blank for now — write your story here later.</p>
+        <p>(Example: how you came up with the idea, the planning, grand opening, etc.)</p>
+      </div>
+
+      <div class="card">
+        <h2>Timeline</h2>
+        <p><b>Idea:</b> (blank)</p>
+        <p><b>Planning:</b> (blank)</p>
+        <p><b>Grand opening:</b> (blank)</p>
+      </div>
+    </div>
+
+    <!-- CONTACT / OUR PLACE -->
+    <div class="page" id="contact">
+      <div class="card">
+        <h2>Our Place</h2>
+        <p><b>Address:</b> (blank)</p>
+        <p><b>Hours:</b> (blank)</p>
+        <p><b>Phone/Email:</b> (blank)</p>
+      </div>
+
+      <div class="card">
+        <h2>QR Code</h2>
+        <p class="muted">Optional: if you want to show a QR on the website too, upload an image named <b>qr.png</b>.</p>
+        <p class="muted">Then add this file to your repo: <b>qr.png</b> (top level).</p>
+        <div style="margin-top:12px; display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+          <img src="qr.png" alt="QR code" style="width:160px;height:160px;object-fit:contain;background:#fff;border-radius:16px;padding:10px;border:1px solid rgba(0,0,0,.08);" />
+          <div class="muted">If you don’t upload qr.png yet, this box might look empty — that’s okay.</div>
+        </div>
+      </div>
+
+      <footer>© Our Place</footer>
+    </div>
+
+  </div>
+
+  <script>
+    // Tab switching
+    const tabs = document.querySelectorAll(".tab");
+    const pages = document.querySelectorAll(".page");
+
+    function showPage(id){
+      pages.forEach(p => p.classList.remove("active"));
+      const page = document.getElementById(id);
+      if(page) page.classList.add("active");
+
+      tabs.forEach(t => t.classList.remove("active"));
+      tabs.forEach(t => {
+        if(t.dataset.page === id) t.classList.add("active");
+      });
+
+      // Scroll to top when switching
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => showPage(btn.dataset.page));
+    });
+  </script>
 </body>
 </html>
