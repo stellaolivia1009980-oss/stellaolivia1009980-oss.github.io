@@ -6,7 +6,7 @@
   <title>Your Restaurant</title>
 
   <style>
-    :root {
+    :root{
       --bg: #f6f7fb;
       --card: #ffffff;
       --text: #111111;
@@ -16,22 +16,22 @@
       --accent: #7aa8ff;
     }
 
-    * { box-sizing: border-box; }
+    *{ box-sizing:border-box; }
 
-    body {
-      margin: 0;
+    body{
+      margin:0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
     }
 
-    .wrap {
-      max-width: 980px;
+    .wrap{
+      max-width: 900px;
       margin: 0 auto;
       padding: 24px 16px 60px;
     }
 
-    header {
+    header{
       background: var(--card);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
@@ -40,78 +40,64 @@
       margin-bottom: 16px;
     }
 
-    .brand h1 {
-      margin: 0;
+    h1{
+      margin:0;
       font-size: 22px;
     }
 
-    .brand p {
-      margin: 6px 0 0;
-      font-size: 14px;
+    .subtitle{
       color: var(--muted);
+      font-size: 14px;
+      margin-top: 6px;
     }
 
-    .tabs {
+    .tabs{
       margin-top: 14px;
-      display: flex;
+      display:flex;
       gap: 10px;
       flex-wrap: wrap;
     }
 
-    .tab {
+    .tab{
       border: 1px solid var(--border);
-      background: white;
+      background: #fff;
       padding: 10px 14px;
       border-radius: 999px;
       cursor: pointer;
       font-size: 14px;
     }
 
-    .tab.active {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(122,168,255,0.2);
+    .tab.active{
+      border-color: rgba(122,168,255,0.6);
+      box-shadow: 0 0 0 3px rgba(122,168,255,0.18);
     }
 
-    .page {
-      display: none;
+    .page{
+      display:none;
       background: var(--card);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
       border-radius: 16px;
-      padding: 18px;
+      padding: 20px;
     }
 
-    .page.active {
-      display: block;
-    }
+    .page.active{ display:block; }
 
-    h2 {
-      margin-top: 0;
+    h2{
+      margin-top:0;
       font-size: 18px;
     }
 
-    .muted {
+    .muted{
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    .gallery {
-      display: grid;
-      gap: 14px;
-      margin-top: 12px;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }
-
-    footer {
+    footer{
       margin-top: 16px;
-      text-align: center;
-      font-size: 12px;
+      text-align:center;
       color: var(--muted);
+      font-size: 12px;
     }
   </style>
 </head>
@@ -120,10 +106,8 @@
   <div class="wrap">
 
     <header>
-      <div class="brand">
-        <h1>Your Restaurant</h1>
-        <p>Light • Elegant • Simple</p>
-      </div>
+      <h1>Your Restaurant</h1>
+      <div class="subtitle">Light • elegant • simple</div>
 
       <div class="tabs">
         <button class="tab active" data-page="home">Home</button>
@@ -138,26 +122,24 @@
         <h2>Welcome</h2>
         <p class="muted">
           Welcome to our restaurant. We serve classic food, presented beautifully,
-          in a calm and welcoming space.
+          in a calm and welcoming environment where guests can relax and enjoy.
         </p>
       </section>
 
       <section class="page" id="menu">
         <h2>Menu</h2>
         <p class="muted">
-          Our menu changes with the seasons, focusing on fresh ingredients
-          and simple, thoughtful flavors.
+          Our menu focuses on thoughtfully prepared dishes made with care,
+          quality ingredients, and attention to detail.
         </p>
       </section>
 
       <section class="page" id="space">
         <h2>Our Space</h2>
-        <div class="gallery">
-          <img src="IMG_0420.jpeg" alt="Restaurant interior photo 1">
-          <img src="IMG_1983.jpeg" alt="Restaurant interior photo 2">
-        </div>
         <p class="muted">
-          Our dining room is light, calm, and designed to feel warm and relaxed.
+          Our dining room is designed to feel warm, light, and inviting.
+          The atmosphere is calm and comfortable, allowing guests to enjoy
+          both the food and the experience.
         </p>
       </section>
 
@@ -172,21 +154,18 @@
     <footer>
       © <span id="year"></span>
     </footer>
-
   </div>
 
   <script>
     const tabs = document.querySelectorAll(".tab");
     const pages = document.querySelectorAll(".page");
 
-    function showPage(id) {
+    function showPage(id){
       pages.forEach(p => p.classList.remove("active"));
       document.getElementById(id).classList.add("active");
 
-    tabs.forEach(t => t.classList.remove("active"));
-
-const activeTab = document.querySelector(`[data-page="${id}"]`);
-if (activeTab) activeTab.classList.add("active");
+      tabs.forEach(t => t.classList.remove("active"));
+      document.querySelector(`[data-page="${id}"]`).classList.add("active");
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -197,6 +176,5 @@ if (activeTab) activeTab.classList.add("active");
 
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
