@@ -7,260 +7,207 @@
 
   <style>
     :root{
-      --bg: #f6f7fb;
-      --card: #ffffff;
-      --text: #111111;
-      --muted: #6b7280;
-      --border: rgba(0,0,0,0.08);
-      --shadow: 0 12px 30px rgba(0,0,0,0.08);
-      --accent: #7aa8ff;
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#111111;
+      --muted:#6b7280;
+      --border:rgba(0,0,0,0.08);
+      --shadow:0 12px 30px rgba(0,0,0,0.08);
+      --accent:#7aa8ff;
     }
 
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
 
     body{
       margin:0;
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background:var(--bg);
+      color:var(--text);
     }
 
     .wrap{
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 24px 16px 60px;
+      max-width:980px;
+      margin:0 auto;
+      padding:24px 16px 60px;
     }
 
     header{
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      border-radius: 16px;
-      padding: 18px 18px 14px;
-      margin-bottom: 16px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      background:var(--card);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:16px;
     }
 
     .brand h1{
       margin:0;
-      font-size: 22px;
-      letter-spacing: 0.3px;
+      font-size:22px;
     }
 
     .brand p{
       margin:6px 0 0;
-      color: var(--muted);
-      font-size: 14px;
+      color:var(--muted);
+      font-size:14px;
     }
 
     .tabs{
-      margin-top: 14px;
+      margin-top:14px;
       display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
     .tab{
-      border: 1px solid var(--border);
-      background: #fff;
-      padding: 10px 12px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 14px;
-      color: var(--text);
+      border:1px solid var(--border);
+      background:#fff;
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-size:14px;
     }
 
     .tab.active{
-      border-color: rgba(122,168,255,0.6);
-      box-shadow: 0 0 0 3px rgba(122,168,255,0.18);
+      border-color:rgba(122,168,255,0.6);
+      box-shadow:0 0 0 3px rgba(122,168,255,0.18);
     }
 
     .page{
       display:none;
-      background: var(--card);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      border-radius: 16px;
-      padding: 18px;
+      background:var(--card);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      border-radius:16px;
+      padding:18px;
     }
-    .page.active{ display:block; }
+
+    .page.active{display:block}
 
     h2{
-      margin: 0 0 10px;
-      font-size: 18px;
+      margin:0 0 10px;
+      font-size:18px;
     }
 
     .muted{
-      color: var(--muted);
-      line-height: 1.7;
-      margin: 0;
+      color:var(--muted);
+      line-height:1.6;
+      margin:0;
     }
 
-    .note{
-      margin-top: 10px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* team cards (text only) */
-    .team{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 12px;
-    }
-
-    .person{
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      background: #fff;
-    }
-
-    .person h3{
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: 0.2px;
-    }
-
-    .person p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
+    .team-card{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:16px;
+      margin-top:14px;
+      background:#fff;
     }
 
     footer{
-      margin-top: 16px;
+      margin-top:16px;
       text-align:center;
-      color: var(--muted);
-      font-size: 12px;
+      color:var(--muted);
+      font-size:12px;
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+<div class="wrap">
 
-    <header>
-      <div class="brand">
-        <div>
-          <h1>Your Restaurant</h1>
-          <p>Light • elegant • simple</p>
-        </div>
+  <header>
+    <div class="brand">
+      <h1>Your Restaurant</h1>
+      <p>Light • elegant • simple</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-page="home">Home</button>
+      <button class="tab" data-page="menu">Menu</button>
+      <button class="tab" data-page="team">Our Team</button>
+      <button class="tab" data-page="contact">Contact</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section class="page active" id="home">
+      <h2>Our Story</h2>
+      <p class="muted">
+        This restaurant began as a simple idea — to create classic food made with care,
+        served in a calm, welcoming space. What started as a shared passion quickly grew
+        into something meaningful, built with love, patience, and a deep respect for food
+        and hospitality.
+      </p>
+    </section>
+
+    <!-- MENU -->
+    <section class="page" id="menu">
+      <h2>Menu</h2>
+      <p class="muted">
+        Our menu focuses on timeless dishes made fresh in-house.
+        Seasonal ingredients, homemade pasta, and thoughtful presentation
+        are at the heart of everything we serve.
+      </p>
+    </section>
+
+    <!-- OUR TEAM (NO PHOTOS – SAME STYLE) -->
+    <section class="page" id="team">
+      <h2>Our Team</h2>
+
+      <div class="team-card">
+        <p class="muted">
+          <strong>Stella</strong> is one of the original minds behind the restaurant.
+          She mainly works as a server and is often one of the first faces guests see
+          when they walk in. Stella focuses on making everyone feel comfortable, welcomed,
+          and happy, bringing warmth and personality to every table.
+        </p>
       </div>
 
-      <div class="tabs">
-        <button class="tab active" data-page="home">Home</button>
-        <button class="tab" data-page="menu">Menu</button>
-        <button class="tab" data-page="team">Our Team</button>
-        <button class="tab" data-page="contact">Contact</button>
+      <div class="team-card">
+        <p class="muted">
+          <strong>Lon</strong> is the co-founder and head chef behind the menu.
+          He created most of the dishes with a focus on classic cooking done right.
+          Nearly all food is made in-house, including homemade pasta, with attention
+          to quality, care, and detail.
+        </p>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <!-- HOME / STORY -->
-      <section class="page active" id="home">
-        <h2>How it started</h2>
-        <p class="muted">
-          This restaurant started as an idea between people who wanted a place that felt welcoming, simple, and special.
-          We wanted classic food that tastes comforting, but looks beautiful on the plate — like a little “treat” every time you visit.
-          <br><br>
-          From planning the vibe (light, clean, calm) to building the menu, we focused on making something that feels warm and memorable.
-          Every part of this is made with care, and we’re so excited to share it with you.
-        </p>
-        <p class="note">You can change any of this text later.</p>
-      </section>
+    <!-- CONTACT -->
+    <section class="page" id="contact">
+      <h2>Contact</h2>
+      <p class="muted">
+        Visit us in person or reach out for reservations and inquiries.
+        We look forward to welcoming you.
+      </p>
+    </section>
+  </main>
 
-      <!-- MENU -->
-      <section class="page" id="menu">
-        <h2>Menu</h2>
-        <p class="muted">
-          Our menu focuses on classic dishes made with care — fresh ingredients, simple flavors, and thoughtful presentation.
-          <br><br>
-          (You can paste your real menu here when you’re ready.)
-        </p>
-        <p class="note">Tip: you can add items like “Starters / Mains / Desserts”.</p>
-      </section>
+  <footer>
+    © <span id="year"></span>
+  </footer>
 
-      <!-- OUR TEAM (NO PHOTOS) -->
-      <section class="page" id="team">
-        <h2>Our Team</h2>
-        <p class="muted">
-          Meet the people behind the restaurant.
-        </p>
+</div>
 
-        <div class="team">
-          <div class="person">
-            <h3>Stella — Server</h3>
-            <p>
-              Stella is one of the first faces you’ll see when you walk in. She focuses on making guests feel welcome,
-              comfortable, and happy — and she loves bringing a few laughs and smiles to the table.
-              <br><br>
-              When she’s not on the floor, Stella also helps the chef in the kitchen from time to time,
-              assisting with cooking and preparation as needed.
-            </p>
-          </div>
+<script>
+  const tabs = document.querySelectorAll(".tab");
+  const pages = document.querySelectorAll(".page");
 
-          <div class="person">
-            <h3>Lon — Co-Founder & Head Chef</h3>
-            <p>
-              Lon is the co-founder of the restaurant and the main chef behind the menu. As head chef,
-              Lon created most of the dishes, focusing on classic food made with care. Almost all of our food is made in-house,
-              including homemade pasta, with attention to quality and detail.
-              <br><br>
-              During service, Lon leads the kitchen and works closely with the team to make sure every dish is prepared just right
-              for our grand opening and beyond.
-            </p>
-          </div>
-        </div>
+  function showPage(id){
+    pages.forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
 
-        <p class="note">Photos removed (text-only) — same style, clean layout.</p>
-      </section>
+    tabs.forEach(t => t.classList.remove("active"));
+    document.querySelector(`[data-page="${id}"]`).classList.add("active");
 
-      <!-- CONTACT -->
-      <section class="page" id="contact">
-        <h2>Contact</h2>
-        <p class="muted">
-          Add your phone number, email, location, and hours here.
-          <br><br>
-          Example:
-          <br>📍 Toronto, ON
-          <br>🕒 Mon–Sun: 11am–9pm
-          <br>📞 (000) 000-0000
-        </p>
-        <p class="note">You can keep this short or make it detailed.</p>
-      </section>
-    </main>
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
 
-    <footer>
-      © <span id="year"></span>
-    </footer>
-  </div>
+  tabs.forEach(tab=>{
+    tab.addEventListener("click",()=>showPage(tab.dataset.page));
+  });
 
-  <script>
-    const tabs = document.querySelectorAll(".tab");
-    const pages = document.querySelectorAll(".page");
-
-    function showPage(id){
-      pages.forEach(p => p.classList.remove("active"));
-      const page = document.getElementById(id);
-      if(page) page.classList.add("active");
-
-      tabs.forEach(t => t.classList.remove("active"));
-      tabs.forEach(t => { if(t.dataset.page === id) t.classList.add("active"); });
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    tabs.forEach(btn => btn.addEventListener("click", () => showPage(btn.dataset.page)));
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  document.getElementById("year").textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
